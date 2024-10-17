@@ -9,7 +9,7 @@ fontfamily:
 header-includes:
   - \setlength\parindent{24pt}
 title: Computernetzwerke 2
-author: Anatoly Naprimerov 275093, Luisa Schmid 
+author: Anatoly Naprimerov 275093, Luisa Schmid 275300
 subtitle: Aufgabenblatt 1
 ---
 \maketitle
