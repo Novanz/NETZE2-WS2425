@@ -8,8 +8,8 @@ geometry:
 fontfamily: 
 header-includes:
   - \setlength\parindent{24pt}
-title: Grundlagen der IT-Sicherheit
-author: Anatoly Naprimerov, Luisa Schmid
+title: Computernetzwerke 2
+author: Anatoly Naprimerov 275093, Luisa Schmid 
 subtitle: Aufgabenblatt 1
 ---
 \maketitle
