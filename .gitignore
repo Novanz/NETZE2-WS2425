@@ -1,6 +1,8 @@
 # Compiled class file
 *.class
-
+# Wireshark
+*.cap
+*.pcapng
 # Log file
 *.log
 
