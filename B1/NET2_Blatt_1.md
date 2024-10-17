@@ -28,7 +28,7 @@ subtitle: Aufgabenblatt 1
 ## Aufgabe 3
 ### 3.1
 
-- a) 35
+- a) 2
 - b) 192.168.200.21 und 192.168.200.135
 - c) 2000
 - d) hello
