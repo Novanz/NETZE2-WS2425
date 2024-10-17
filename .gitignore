@@ -1,5 +1,8 @@
 # Compiled class file
 *.class
+
+# Aufgabe und Lösungen
+*.pdf
 # Wireshark
 *.cap
 *.pcapng
