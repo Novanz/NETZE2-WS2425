@@ -58,28 +58,28 @@ public class SimpleHTTPServer {
 
     private static String readText(Socket s) throws IOException {
         BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
-        String str;
-        StringBuilder sb = new StringBuilder();
-        while ((str = input.readLine()) != null) {
-            System.out.println(str);
-            if (str.isEmpty()) {
+        String line;
+        StringBuilder request = new StringBuilder();
+        while ((line = input.readLine()) != null) {
+            System.out.println(line);
+            if (line.isEmpty()) {
                 break;
             }
-            sb.append(str);
-            sb.append("\r\n");
+            request.append(line);
+            request.append("\r\n");
         }
         //input.close();
         System.out.println("end of while loop");
-        return (sb.toString());
+        return (request.toString());
     }
 
-    private static void sendText(Socket s, String string) {
+    private static void sendText(Socket s, String response) {
         System.out.println("Durch Socket uebertragen...");
         try {
-            System.out.println(string);
-            OutputStreamWriter osw = new OutputStreamWriter(s.getOutputStream());
-            osw.write(string);
-            osw.flush();
+            System.out.println(response);
+            OutputStreamWriter output = new OutputStreamWriter(s.getOutputStream());
+            output.write(response);
+            output.flush();
         } catch (IOException e) {
             System.out.println("Fehler beim uebertragen ueber Socket");
             e.printStackTrace();
