@@ -4,14 +4,13 @@ import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-//TODO: remove debug output, comment code, add comments, add max-age to cookie
 
 public class SimpleHTTPServer {
+
+    // extract cookie from request if it exists or return null
     private static Date parseCookie(String request) {
-        System.out.println("in parseCookie...");
         String cookiePrefix = "Last-Access=";
         int startIndex = request.indexOf(cookiePrefix);
-        System.out.println("startIndex: " + startIndex);
         if (startIndex == -1) {
             return null;
         }
@@ -21,7 +20,6 @@ public class SimpleHTTPServer {
             endIndex = request.length();
         }
         String dateString = request.substring(startIndex, endIndex);
-        System.out.println("dateString: " + dateString);
         try {
             return new SimpleDateFormat("dd.MM.yyyy, HH:mm:ss").parse(dateString);
         } catch (Exception e) {
@@ -30,7 +28,8 @@ public class SimpleHTTPServer {
         }
     }
 
-    // extractt html generattor
+    // Build response with current time and last access time, if Last-Access cookie was not found, display
+    // first visit message instead.
     private static String generateResponse(Date lastAccessTimestamp) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy, HH:mm:ss");
         String currentTime = sdf.format(new Date());
@@ -38,8 +37,7 @@ public class SimpleHTTPServer {
         // HTTP-Header
         response.append("HTTP/1.1 200 OK\r\n");
         response.append("Content-Type: text/html\r\n");
-        response.append("Set-Cookie: Last-Access=").append(currentTime);
-        //  .append("; Max-Age=3600\r\n");
+        response.append("Set-Cookie: Last-Access=").append(currentTime).append("; Max-Age=3600\r\n");
         response.append("\r\n\n");
         // HTML-Body
         response.append("<!DOCTYPE html><html><body>");
@@ -56,27 +54,25 @@ public class SimpleHTTPServer {
         return response.toString();
     }
 
+    // Read incoming request and return it as a string
     private static String readText(Socket s) throws IOException {
         BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
         String line;
         StringBuilder request = new StringBuilder();
         while ((line = input.readLine()) != null) {
-            System.out.println(line);
             if (line.isEmpty()) {
                 break;
             }
             request.append(line);
             request.append("\r\n");
         }
-        //input.close();
-        System.out.println("end of while loop");
         return (request.toString());
     }
 
+    // Send response to client
     private static void sendText(Socket s, String response) {
         System.out.println("Durch Socket uebertragen...");
         try {
-            System.out.println(response);
             OutputStreamWriter output = new OutputStreamWriter(s.getOutputStream());
             output.write(response);
             output.flush();
