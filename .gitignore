@@ -4,8 +4,8 @@
 # Aufgabe und Lösungen
 *.pdf
 # Wireshark
-*.cap
-*.pcapng
+# *.cap
+# *.pcapng
 # Log file
 *.log
 
