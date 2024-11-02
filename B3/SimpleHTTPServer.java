@@ -8,7 +8,7 @@ import java.util.Date;
 public class SimpleHTTPServer {
 
     // extract cookie from request if it exists or return null
-    private static Date parseCookie(String request) {
+    static Date parseCookie(String request) {
         String cookiePrefix = "Last-Access=";
         int startIndex = request.indexOf(cookiePrefix);
         if (startIndex == -1) {
@@ -30,15 +30,16 @@ public class SimpleHTTPServer {
 
     // Build response with current time and last access time, if Last-Access cookie was not found, display
     // first visit message instead.
-    private static String generateResponse(Date lastAccessTimestamp) {
+    static String generateResponse(Date lastAccessTimestamp) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy, HH:mm:ss");
         String currentTime = sdf.format(new Date());
         StringBuilder response = new StringBuilder();
         // HTTP-Header
         response.append("HTTP/1.1 200 OK\r\n");
         response.append("Content-Type: text/html\r\n");
-        response.append("Set-Cookie: Last-Access=").append(currentTime).append("; Max-Age=3600\r\n");
-        response.append("\r\n\n");
+        response.append("Set-Cookie: Last-Access=").append(currentTime);
+        //.append("; Max-Age=3600\r\n");
+        response.append("\r\n\r\n");
         // HTML-Body
         response.append("<!DOCTYPE html><html><body>");
         response.append("<h2>Hallo! Es ist der ").append(currentTime).append(" Uhr.</h2>");
@@ -55,7 +56,7 @@ public class SimpleHTTPServer {
     }
 
     // Read incoming request and return it as a string
-    private static String readText(Socket s) throws IOException {
+    static String readText(Socket s) throws IOException {
         BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
         String line;
         StringBuilder request = new StringBuilder();
@@ -70,7 +71,7 @@ public class SimpleHTTPServer {
     }
 
     // Send response to client
-    private static void sendText(Socket s, String response) {
+    static void sendText(Socket s, String response) {
         System.out.println("Durch Socket uebertragen...");
         try {
             OutputStreamWriter output = new OutputStreamWriter(s.getOutputStream());
