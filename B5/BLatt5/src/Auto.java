@@ -1,8 +1,9 @@
 import java.io.Serializable;
-public class Auto {
-    private String farbe, marke;
-    private int ps;
-    private double gewichtInTonnen;
+public class Auto implements Serializable {
+    private final String farbe;
+    private final String marke;
+    private final int ps;
+    private final double gewichtInTonnen;
     public Auto(String farbe, int ps, double gewichtInTonnen, String marke) {
         this.farbe = farbe;
         this.ps = ps;

@@ -4,7 +4,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Receiver {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         ServerSocket serverSocket = new ServerSocket(1337);
         Socket server = serverSocket.accept();
         ObjectInputStream ois = new ObjectInputStream(server.getInputStream());
